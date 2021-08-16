@@ -11,18 +11,60 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Card";
+import Form from "react-bootstrap/Form";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom'
+
+
 
 function App() {
   const [data, setData] = useState(null);
 
+  
   useEffect(() => {
     async function dataFetch() {
-      const res = await axios.get("/api");
+      const res = await axios.get("/post");
       console.log(res);
       setData(res.data.message);
     }
-    dataFetch();
+    dataFetch()
   }, []);
+
+class MyForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { username: '' };
+  }
+  mySubmitHandler = (event) => {
+    event.preventDefault();
+    alert("You are submitting " + this.state.username);
+    axios.post("/post",this.state.username)
+  }
+  myChangeHandler = (event) => {
+    this.setState({username: event.target.value});
+  }
+  render() {
+    return (
+      <form onSubmit={this.mySubmitHandler}>
+      <h1>Hello {this.state.username}</h1>
+      <p>Enter your name, and submit:</p>
+      <input
+        type='text'
+        onChange={this.myChangeHandler}
+      />
+      <input
+        type='submit'
+      />
+      </form>
+    );
+  }
+}
+
+  
 
   return (
     <>
@@ -207,6 +249,11 @@ function App() {
             ))}
           </Row>
           </Container>
+      </div>
+      <div>
+        <Container>
+        
+      </Container>
       </div>
     </>
   );
