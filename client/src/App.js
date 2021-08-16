@@ -20,20 +20,6 @@ import {
 } from 'react-router-dom'
 
 
-
-function App() {
-  const [data, setData] = useState(null);
-
-  
-  useEffect(() => {
-    async function dataFetch() {
-      const res = await axios.get("/post");
-      console.log(res);
-      setData(res.data.message);
-    }
-    dataFetch()
-  }, []);
-
 class MyForm extends React.Component {
   constructor(props) {
     super(props);
@@ -63,6 +49,23 @@ class MyForm extends React.Component {
     );
   }
 }
+
+
+
+function App() {
+  const [data, setData] = useState(null);
+
+  
+  useEffect(() => {
+    async function dataFetch() {
+      const res = await axios.get("/post");
+      console.log(res);
+      setData(res.data.message);
+    }
+    dataFetch()
+  }, []);
+
+
 
   
 
@@ -252,7 +255,7 @@ class MyForm extends React.Component {
       </div>
       <div>
         <Container>
-        
+              <MyForm />
       </Container>
       </div>
     </>
